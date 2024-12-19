@@ -1,0 +1,29 @@
+﻿<Window x:Class="WPF_Study.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPF_Study"
+        mc:Ignorable="d"
+        Title="File Tool" Height="480" Width="460">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal">
+            <Button Height = "20" Width="40" Content="文件" x:Name="toFile" Click="Switch_To_File_Click"/>
+            <Button Height = "20" Width="40" Content="目录" x:Name="toDir" Click="Switch_to_Dir_Click"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" Grid.Column="0">
+            <StackPanel Height="30" Orientation="Horizontal">
+                <Label Content="选中路径：" VerticalAlignment="Center"/>
+                <TextBox Height="20" Width="250" VerticalAlignment="Center" x:Name="SelectedPath"/>
+                <Button Content="选择路径" Height="20" Margin="10,0,0,0" Click="Select_Path_Click"/>
+                <Button Content="清空路径" Height="20" Margin="10,0,0,0" Click="Clear_Path_Click"/>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Window>

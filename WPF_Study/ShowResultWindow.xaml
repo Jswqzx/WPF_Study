@@ -1,0 +1,71 @@
+﻿<Window x:Class="WPF_Study.ShowResultWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPF_Study"
+        mc:Ignorable="d"
+        Title="ShowResultWindow" Height="610" Width="510">
+    <Viewbox>
+        <Grid Height="600" Width="500">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="600"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="500"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel VerticalAlignment="Top" Height="500" Width="500">
+                <StackPanel Height="500" Width="500" Orientation="Horizontal">
+                    <StackPanel Height="500" Width="200" Orientation="Vertical" Margin="10,0,0,0">
+                        <StackPanel Height="40" Orientation="Horizontal">
+                            <Label FontSize="12" VerticalAlignment="Center">数量</Label>
+                            <Label FontSize="12" Content="{Binding unSelectFileCount}" VerticalAlignment="Center" />
+                            <Label FontSize="24" HorizontalAlignment="Center">待选择</Label>
+                            <Label FontSize="12" VerticalAlignment="Center">全选:</Label>
+                            <CheckBox VerticalAlignment="Center" x:Name="unSelectAll" Checked="checkUnSelectAll" Unchecked="unCheckUnSelectAll"/>
+                        </StackPanel>
+                        <ListBox Height="420" x:Name="unSelectedList" SelectionMode="Extended" ItemsSource="{Binding unSelectFileNames}">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <Label Content="{Binding Name}" />
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                            <StackPanel Height="40" Width="200" Orientation="Horizontal">
+                            <Label Width="50" VerticalAlignment="Center">筛选词:</Label>
+                            <TextBox Width="100" Height="25" x:Name="UnSelectFilterWord"/>
+                            <Button Content="筛选" Width="40" Height="25" Margin="10,0,0,0" Click="FilterUnSelectList"/>
+                        </StackPanel>
+                    </StackPanel>
+                    <StackPanel Height="400" Width="50" Margin="15,0,15,0">
+                        <Button Margin="0,100,0,0" Content="选择->" Click="UnSelecteToSelected"/>
+                        <Button Margin="0,100,0,0" Content="&lt;-选择" Click="SelectedToUnSelect"/>
+                        <Button Margin="0,100,0,0" Content="重置" Click="resetAll"/>
+                    </StackPanel>
+                    <StackPanel Height="500" Width="200" Orientation="Vertical">
+                        <StackPanel Height="40" Orientation="Horizontal">
+                            <Label FontSize="12" VerticalAlignment="Center">数量</Label>
+                            <Label FontSize="12" Content="{Binding selectedFileCount}" VerticalAlignment="Center" />
+                            <Label FontSize="24" HorizontalAlignment="Center">已选择</Label>
+                            <Label FontSize="12" VerticalAlignment="Center">全选:</Label>
+                            <CheckBox VerticalAlignment="Center" x:Name="selectedAll" Checked="checkSelectedAll" Unchecked="unCheckSelectedAll"/>
+                        </StackPanel>
+                        <ListBox Height="420" x:Name="selectedList"  SelectionMode="Extended" ItemsSource="{Binding selectedFileNames}">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <Label Content="{Binding Name}" />
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                        <StackPanel Height="40" Width="200" Orientation="Horizontal">
+                            <Label Width="50" VerticalAlignment="Center">筛选词:</Label>
+                            <TextBox Width="100" Height="25" x:Name="SelectedFilterWord"/>
+                            <Button Content="筛选" Width="40" Height="25" Margin="10,0,0,0" Click="FilterSelectedList"/>
+                        </StackPanel>
+                    </StackPanel>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+    </Viewbox>
+</Window>
