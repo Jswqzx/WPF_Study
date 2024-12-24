@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPF_Study"
         mc:Ignorable="d"
-        Title="File Tool" Height="480" Width="460">
+        Title="File Tool" Height="100" Width="460">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="20"/>

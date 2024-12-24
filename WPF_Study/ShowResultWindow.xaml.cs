@@ -37,6 +37,8 @@ namespace WPF_Study
             vm = new fileVM();
 
             this.DataContext = vm;
+
+            nameSelectBox.SelectedIndex = 0;
         }
 
         // 添加项目列表
@@ -223,22 +225,8 @@ namespace WPF_Study
         // 未选择文件过滤点击事件
         private void FilterUnSelectList(object sender, RoutedEventArgs e)
         {
-            // 获取过滤词
-            string filterWord = UnSelectFilterWord.Text;
+            vm.unSelectFileNames = getListAfterFilter(UnSelectFilterWord.Text, vm.unSelectFileNames);
 
-            if (!String.IsNullOrEmpty(filterWord))
-            {
-                // 获取分割词列表
-                var WordList = filterWord.Split('/');
-                var filterList = vm.unSelectFileNames;
-                // 遍历分割词
-                foreach (string word in WordList)
-                {
-                    // 对列表进行过滤
-                    filterList = getFilterList(word,filterList);
-                }
-                vm.unSelectFileNames = filterList;
-            }
         }
 
         // 重置
@@ -266,7 +254,88 @@ namespace WPF_Study
         // 筛选已选文件列表
         private void FilterSelectedList(object sender, RoutedEventArgs e)
         {
+            // 获取过滤词
+            vm.selectedFileNames = getListAfterFilter(SelectedFilterWord.Text, vm.selectedFileNames);
+        }
 
+        // 根据过滤词过滤数组，然后返回
+        private ObservableCollection<FileItem> getListAfterFilter(string filterWord, ObservableCollection<FileItem> desList)
+        {
+            ObservableCollection<FileItem> resList = new ObservableCollection<FileItem>();
+            if (!String.IsNullOrEmpty(filterWord))
+            {
+                // 复制数组
+                foreach (FileItem item in desList)
+                {
+                    resList.Add(item);
+                }
+
+                var WordList = filterWord.Split('/');
+
+                foreach (string word in WordList)
+                {
+                    // 对列表进行过滤
+                    resList = getFilterList(word, resList);
+                }
+            }
+            return resList;
+        }
+
+        // 执行文件名称操作
+        private void nameOperationConfirm(object sender, RoutedEventArgs e)
+        {
+            int selectionIndex = nameSelectBox.SelectedIndex;
+            if (selectionIndex == 0)
+            {
+                var opStrList = nameOperationValue.Text.Split("/");
+                foreach (FileItem fileItem in vm.selectedFileNames)
+                {
+                    foreach (string opStr in opStrList)
+                    {
+                        fileItem.Name.Replace(opStr, "");
+                    }
+                }
+            }
+            else
+            {
+                string replaceSource = nameOperationValue.Text;
+                string replaceTarget = replaceValue.Text;
+
+                if (!"".Equals(replaceSource))
+                {
+                    var fileList =  vm.selectedFileNames;
+                    foreach (FileItem fileItem in fileList)
+                    {
+                        fileItem.Name = fileItem.Name.Replace(replaceSource,replaceTarget);
+                    }
+                }
+            }
+
+        }
+
+        // 
+        private void modChange(object sender, SelectionChangedEventArgs e)
+        {
+            int value = nameSelectBox.SelectedIndex;
+            if(value == 1)
+            {
+                rePlaceBlock.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                rePlaceBlock.Visibility = Visibility.Collapsed;
+            }
+            replaceValue.Text = string.Empty;
+        }
+
+        // 提取文件
+        private void extractFiles(object sender, RoutedEventArgs e)
+        {
+            // 1.获取目录列表
+
+            // 2. 遍历列表获取目录对象
+
+            // 3. 
         }
     }
 

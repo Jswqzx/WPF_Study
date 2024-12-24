@@ -5,17 +5,17 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPF_Study"
         mc:Ignorable="d"
-        Title="ShowResultWindow" Height="610" Width="510">
+        Title="ShowResultWindow" Height="510" Width="710">
     <Viewbox>
-        <Grid Height="600" Width="500">
+        <Grid Height="500" Width="700">
             <Grid.RowDefinitions>
-                <RowDefinition Height="600"/>
+                <RowDefinition Height="500"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="500"/>
+                <ColumnDefinition Width="700"/>
             </Grid.ColumnDefinitions>
 
-            <StackPanel VerticalAlignment="Top" Height="500" Width="500">
+            <StackPanel Height="500" Width="700" HorizontalAlignment="Left" Orientation="Horizontal">
                 <StackPanel Height="500" Width="500" Orientation="Horizontal">
                     <StackPanel Height="500" Width="200" Orientation="Vertical" Margin="10,0,0,0">
                         <StackPanel Height="40" Orientation="Horizontal">
@@ -63,6 +63,23 @@
                             <TextBox Width="100" Height="25" x:Name="SelectedFilterWord"/>
                             <Button Content="筛选" Width="40" Height="25" Margin="10,0,0,0" Click="FilterSelectedList"/>
                         </StackPanel>
+                    </StackPanel>
+                </StackPanel>
+                <StackPanel Height="500" Width="200" VerticalAlignment="Top">
+                    <StackPanel Width="200" Margin="0,20,0,0" Height="25" Orientation="Horizontal">
+                        <ComboBox SelectionChanged="modChange" x:Name="nameSelectBox" VerticalContentAlignment="Center" Width="55" Height="25" FontSize="14">
+                            <ComboBoxItem>去除</ComboBoxItem>
+                            <ComboBoxItem>替换</ComboBoxItem>
+                        </ComboBox>
+                        <TextBox Height="25" Width="115" VerticalContentAlignment="Center" x:Name="nameOperationValue"/>
+                        <Button  Height="25" Width="30" Content="确定" Click="nameOperationConfirm"/>
+                    </StackPanel>
+                    <StackPanel x:Name="rePlaceBlock" Orientation="Horizontal" Visibility="Hidden">
+                        <Label>要替换的值：</Label>
+                        <TextBox Height="25" Width="115" VerticalContentAlignment="Center" x:Name="replaceValue"/>
+                    </StackPanel>
+                    <StackPanel>
+                        <Button Content="提取文件" Click="extractFiles"/>
                     </StackPanel>
                 </StackPanel>
             </StackPanel>
