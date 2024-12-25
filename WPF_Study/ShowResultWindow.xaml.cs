@@ -42,9 +42,9 @@ namespace WPF_Study
         }
 
         // 添加项目列表
-        public void addItemToUnSelectList(FileInfo[] fileList)
+        public void addItemToUnSelectList(FileSystemInfo[] fileList)
         {
-            foreach (FileInfo file in fileList)
+            foreach (var file in fileList)
             {
                 FileItem fileItem = new FileItem();
                 fileItem.Name = file.Name;
@@ -332,12 +332,65 @@ namespace WPF_Study
         private void extractFiles(object sender, RoutedEventArgs e)
         {
             // 1.获取目录列表
-
+            var originalDirList = vm.selectedFileNames;
             // 2. 遍历列表获取目录对象
+            int step = 100 / originalDirList.Count;
+            foreach (FileItem fileItem in originalDirList)
+            {
+                // 3.判断该路径是否为目录
+                string path = fileItem.FullName;
+                extractDir(path,path);
 
-            // 3. 
+                fileProcessBar.Value += step;
+            }
+            // 3. 判断目录下是否有子目录
+
+            // 4. 没有子目录则直接退出
+
+            // 5. 有子目录则进入子目录，获取子目录对象
+
+            // 6. 判断子目录对象下是否有文件
+
+            // 7. 有文件则提取文件到上级目录下，没有则跳出
+        }
+
+        private void extractDir(string sourcePath,string targetPath)
+        {
+            if (Directory.Exists(sourcePath) && Directory.Exists(targetPath))
+            {
+                // 4. 判断该目录下是否存在子目录
+                string[] subDirPaths = Directory.GetDirectories(sourcePath);
+                // 5. 遍历子目录，进行递归
+                foreach (string subPath in subDirPaths)
+                {
+                    // 6. 判断该路径下是否还有目录，有就进行递归
+                    if (Directory.Exists(subPath))
+                    {
+                        extractDir(subPath, sourcePath);
+                    }
+                }
+                // 7. 获取指定目录下的文件
+                if(!sourcePath.Equals(targetPath))
+                {
+                    string[] sourceFiles = Directory.GetFiles(sourcePath);
+                    // 8. 遍历文件，移动到指定目录下
+                    foreach (string sourceFile in sourceFiles)
+                    {
+                        // 文件名称
+                        string[] splitList = sourceFile.Split("\\");
+                        string fileName = splitList[splitList.Length - 2] + "_" + splitList[splitList.Length - 1];
+
+                        // 移动文件
+                        File.Copy(sourceFile, targetPath + "\\" + fileName, true);
+                        File.Delete(sourceFile);
+                    }
+
+                    Directory.Delete(sourcePath);
+                }
+            }
         }
     }
+
 
     public class fileVM : INotifyPropertyChanged
     {

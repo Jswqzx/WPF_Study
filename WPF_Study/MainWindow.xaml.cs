@@ -52,7 +52,9 @@ namespace WPF_Study
                     SelectedPath.Text = fullPathToFolder;
                     // 读取目录下的所有文件
                     DirectoryInfo dirInfo = new DirectoryInfo(fullPathToFolder);
-                    FileInfo[] fileList = dirInfo.GetFiles("*.*", SearchOption.AllDirectories);
+                    //FileInfo[] fileList = dirInfo.GetFiles("*", SearchOption.AllDirectories);
+                    DirectoryInfo[] fileList = dirInfo.GetDirectories("*", SearchOption.AllDirectories);
+
                     // 显示到结果窗口上
                     ShowResultWindow srw = new ShowResultWindow();
                     srw.addItemToUnSelectList(fileList);
