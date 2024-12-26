@@ -5,25 +5,25 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPF_Study"
         mc:Ignorable="d"
-        Title="File Tool" Height="100" Width="460">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="20"/>
-            <RowDefinition />
-        </Grid.RowDefinitions>
+        Title="File Tool" Height="150" Width="700">
+    <Viewbox>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+            </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal">
-            <Button Height = "20" Width="40" Content="文件" x:Name="toFile" Click="Switch_To_File_Click"/>
-            <Button Height = "20" Width="40" Content="目录" x:Name="toDir" Click="Switch_to_Dir_Click"/>
-        </StackPanel>
-
-        <StackPanel Grid.Row="1" Grid.Column="0">
-            <StackPanel Height="30" Orientation="Horizontal">
-                <Label Content="选中路径：" VerticalAlignment="Center"/>
-                <TextBox Height="20" Width="250" VerticalAlignment="Center" x:Name="SelectedPath"/>
-                <Button Content="选择路径" Height="20" Margin="10,0,0,0" Click="Select_Path_Click"/>
-                <Button Content="清空路径" Height="20" Margin="10,0,0,0" Click="Clear_Path_Click"/>
+            <StackPanel Grid.Row="0" Grid.Column="0">
+                <StackPanel Width="700" Height="60" Orientation="Horizontal">
+                    <Label Content="选中路径：" FontSize="24" Height="50" Width="120" VerticalContentAlignment="Center"/>
+                    <TextBox FontSize="24" Height="50" Width="450" VerticalAlignment="Center" x:Name="SelectedPath" VerticalContentAlignment="Center" />
+                    <Button Content="选择路径"  Height="50" Width="55" Margin="5,0,0,0" Click="Select_Path_Click"/>
+                    <Button Content="清空路径"  Height="50" Width="55" Margin="5,0,0,0" Click="Clear_Path_Click"/>
+                </StackPanel>
+                <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal">
+                    <RadioButton Margin="10,0,10,0" VerticalAlignment="Center" x:Name="OperationType_File" Content="文件"/>
+                    <RadioButton VerticalAlignment="Center" x:Name="OperationType_Dir" Content="目录"/>
+                </StackPanel>
             </StackPanel>
-        </StackPanel>
-    </Grid>
+        </Grid>
+    </Viewbox>
 </Window>

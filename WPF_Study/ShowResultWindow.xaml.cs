@@ -15,6 +15,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Microsoft.VisualBasic.FileIO;
 
 namespace WPF_Study
 {
@@ -285,6 +286,7 @@ namespace WPF_Study
         private void nameOperationConfirm(object sender, RoutedEventArgs e)
         {
             int selectionIndex = nameSelectBox.SelectedIndex;
+            // 下标为0表示去除名称中的指定字符串
             if (selectionIndex == 0)
             {
                 var opStrList = nameOperationValue.Text.Split("/");
@@ -296,7 +298,7 @@ namespace WPF_Study
                     }
                 }
             }
-            else
+            else // 下标为1表示进行替换操作
             {
                 string replaceSource = nameOperationValue.Text;
                 string replaceTarget = replaceValue.Text;
@@ -310,6 +312,18 @@ namespace WPF_Study
                     }
                 }
             }
+            // 更新名称
+            //foreach (FileItem fileItem in vm.selectedFileNames)
+            //{
+            //    if()
+            //    {
+
+            //    }
+            //    else
+            //    {
+
+            //    }
+            //}
 
         }
 
@@ -334,7 +348,11 @@ namespace WPF_Study
             // 1.获取目录列表
             var originalDirList = vm.selectedFileNames;
             // 2. 遍历列表获取目录对象
-            int step = 100 / originalDirList.Count;
+            int step = 0;
+            if(originalDirList.Count != 0)
+            {
+                step = 100 / originalDirList.Count;
+            }
             foreach (FileItem fileItem in originalDirList)
             {
                 // 3.判断该路径是否为目录
@@ -343,15 +361,7 @@ namespace WPF_Study
 
                 fileProcessBar.Value += step;
             }
-            // 3. 判断目录下是否有子目录
-
-            // 4. 没有子目录则直接退出
-
-            // 5. 有子目录则进入子目录，获取子目录对象
-
-            // 6. 判断子目录对象下是否有文件
-
-            // 7. 有文件则提取文件到上级目录下，没有则跳出
+            MessageBox.Show("提取完成","结果提示",MessageBoxButton.OK);
         }
 
         private void extractDir(string sourcePath,string targetPath)

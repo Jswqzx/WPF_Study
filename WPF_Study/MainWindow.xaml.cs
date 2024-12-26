@@ -13,18 +13,9 @@ namespace WPF_Study
         public MainWindow()
         {
             InitializeComponent();
-        }
 
-        private void Switch_To_File_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("切换到文件工作页面","弹窗标题",MessageBoxButton.OK,MessageBoxImage.Information);
+            OperationType_File.IsChecked = true;
         }
-
-        private void Switch_to_Dir_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("切换到目录工作页面", "弹窗标题", MessageBoxButton.OK, MessageBoxImage.Information);
-        }
-
         private void Select_Path_Click(object sender, RoutedEventArgs e)
         {
             // Configure open folder dialog box
@@ -52,22 +43,20 @@ namespace WPF_Study
                     SelectedPath.Text = fullPathToFolder;
                     // 读取目录下的所有文件
                     DirectoryInfo dirInfo = new DirectoryInfo(fullPathToFolder);
-                    //FileInfo[] fileList = dirInfo.GetFiles("*", SearchOption.AllDirectories);
-                    DirectoryInfo[] fileList = dirInfo.GetDirectories("*", SearchOption.AllDirectories);
+                    FileSystemInfo[] fileList;
+                    if(OperationType_Dir.IsChecked == true)
+                    {
+                        fileList = dirInfo.GetDirectories("*", SearchOption.AllDirectories);
+                    }
+                    else
+                    {
+                        fileList = dirInfo.GetFiles("*", SearchOption.AllDirectories);
+                    }
 
                     // 显示到结果窗口上
                     ShowResultWindow srw = new ShowResultWindow();
                     srw.addItemToUnSelectList(fileList);
                     srw.Show();
-                    //var fileQuery = from file in fileList
-                    //                where file.Extension == ".txt"
-                    //                orderby file.CreationTime
-                    //                select file;
-
-                    //foreach(FileInfo fi in fileQuery)
-                    //{
-                    //    MessageBox.Show(fi.Extension,"File Result Show Window");
-                    //}
                 }
             }
         }
